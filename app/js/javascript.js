@@ -52,6 +52,17 @@ $( document ).ready(function(){
                     }
                   )
 
+    const area = d3.area()
+                  .x((d) =>{
+                    console.log(d[0])
+                    let date = dateParser(d[0])
+                    return x(date)
+                  } )
+                  .y0(height)
+                  .y1( (d) => {
+                    return y(d[1])
+                  } )
+
     function plot(params){
       //create axis for x and y
       this.append("g")
@@ -80,6 +91,13 @@ $( document ).ready(function(){
             .classed("point", true)
             .attr("r", 2)
 
+      this.selectAll(".area")
+          .data([params.data])
+          .enter()
+            .append("path")
+            .classed("area", true)
+
+
       //update
       this.select(".trendline")
             .attr("d", (d)=>{
@@ -97,6 +115,11 @@ $( document ).ready(function(){
               return y(d[1])
             })
 
+      this.selectAll(".area")
+        .attr("d", (d)=> {
+          return area(d)
+        })
+
       //exit
       this.selectAll(".trendline")
         .data([params.data])
@@ -105,6 +128,12 @@ $( document ).ready(function(){
           .remove()
 
       this.selectAll(".point")
+        .data(params.data)
+        .enter()
+          .exit()
+          .remove()
+
+      this.selectAll(".area")
         .data(params.data)
         .enter()
           .exit()
