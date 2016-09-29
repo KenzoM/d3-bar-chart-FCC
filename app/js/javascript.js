@@ -53,11 +53,32 @@ $( document ).ready(function(){
         .classed("y axis", true)
         .attr("transform", "translate(0,0)")
         .call(params.axis.y)
+
       //enter()
+      this.selectAll(".point")
+          .data(params.data)
+          .enter()
+            .append("circle")
+            .classed("point", true)
+            .attr("r", 2)
 
       //update
-
+      this.selectAll(".point")
+            .attr("cx", function(d){
+              // console.log(d)
+              let date = dateParser(d[0])
+              // console.log(x(date))
+              return x(date)
+            })
+            .attr("cy", function(d){
+              return y(d[1])
+            })
       //exit
+      this.selectAll(".point")
+        .data(params.data)
+        .enter()
+          .exit()
+          .remove()
     }
 
     plot.call(chart,{
