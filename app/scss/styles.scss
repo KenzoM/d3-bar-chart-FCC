@@ -10,3 +10,14 @@ body{
 .display{
   border: 1px solid red;
 }
+
+.point{
+  stroke:purple;
+  fill:none;
+}
+
+.trendline{
+  fill: none;
+  stroke: red;
+  stroke-width: 4px;
+}

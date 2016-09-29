@@ -42,6 +42,16 @@ $( document ).ready(function(){
 
     const yAxis = d3.axisLeft(y);
 
+    const line = d3.line()
+                    .x((d) =>{
+                      let date = dateParser(d[0])
+                      return x(date)
+                    } )
+                    .y((d) =>{
+                      return y(d[1])
+                    }
+                  )
+
     function plot(params){
       //create axis for x and y
       this.append("g")
@@ -55,6 +65,14 @@ $( document ).ready(function(){
         .call(params.axis.y)
 
       //enter()
+
+      this.selectAll(".trendline")
+            .data([params.data])
+            .enter()
+              .append("path")
+              .classed("trendline", true)
+
+
       this.selectAll(".point")
           .data(params.data)
           .enter()
@@ -63,6 +81,11 @@ $( document ).ready(function(){
             .attr("r", 2)
 
       //update
+      this.select(".trendline")
+            .attr("d", (d)=>{
+              return line(d)
+            })
+
       this.selectAll(".point")
             .attr("cx", function(d){
               // console.log(d)
@@ -73,7 +96,14 @@ $( document ).ready(function(){
             .attr("cy", function(d){
               return y(d[1])
             })
+
       //exit
+      this.selectAll(".trendline")
+        .data([params.data])
+        .enter()
+          .exit()
+          .remove()
+
       this.selectAll(".point")
         .data(params.data)
         .enter()
