@@ -1,2 +1,7 @@
-body {
-  background: #e2e2e2; }
+#chart {
+  background: #e2e2e2;
+  margin: 100px auto;
+  border: 1px solid black; }
+
+.display {
+  border: 1px solid red; }
