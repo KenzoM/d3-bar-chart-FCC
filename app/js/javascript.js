@@ -11,6 +11,7 @@ $( document ).ready(function(){
     }
     const width = w - (margin.left + margin.right);
     const height = h - (margin.top + margin.bottom);
+
     //create canvas with id="chart"
     const svg = d3.select("body")
                   .append("svg")
@@ -54,7 +55,6 @@ $( document ).ready(function(){
 
     const area = d3.area()
                   .x((d) =>{
-                    console.log(d[0])
                     let date = dateParser(d[0])
                     return x(date)
                   } )
@@ -90,6 +90,9 @@ $( document ).ready(function(){
             .append("circle")
             .classed("point", true)
             .attr("r", 2)
+            .on("mouseover", (d,i) =>{
+              console.log(d)
+            })
 
       this.selectAll(".area")
           .data([params.data])
