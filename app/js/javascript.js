@@ -26,6 +26,8 @@ $( document ).ready(function(){
 
     const dateParser = d3.timeParse("%Y-%m-%d");
 
+    //define x-scale and y-scale
+
     const x = d3.scaleTime()
                   .domain(d3.extent(data, function(d){
                     let date = dateParser(d[0])
@@ -44,6 +46,7 @@ $( document ).ready(function(){
 
     const yAxis = d3.axisLeft(y);
 
+    //define the line function
     const line = d3.line()
                     .x((d) =>{
                       let date = dateParser(d[0])
@@ -51,8 +54,14 @@ $( document ).ready(function(){
                     } )
                     .y((d) =>{
                       return y(d[1])
-                    }
-                  )
+                    } )
+
+    const tooltip = d3.select("body")
+                .append("div")
+                  .classed("tooltip", true)
+                  .style("opacity",0)
+
+
     function plot(params){
       //create axis for x and y
       this.append("g")
@@ -69,7 +78,7 @@ $( document ).ready(function(){
       this.select(".y.axis")
         .selectAll("text")
         .style("font-size","18px")
-        
+
       this.select(".x.axis")
         .selectAll("text")
         .style("font-size","16px")
@@ -88,11 +97,22 @@ $( document ).ready(function(){
           .enter()
               .append("rect")
               .classed("bar", true)
+              //add event listener to display info over mouseover
               .on("mouseover", function(d,i){
-              d3.select(this).style("fill", "black");
+                let dateFormat = d3.timeFormat("%B-%Y")(dateParser(d[0]));
+                // console.log(d3.timeFormat("%b")(dateParser(d[0])))
+                let text = "$" + d[1] + " Billion"  +"<br/>" + "<strong>"+dateFormat+"</strong>";
+                d3.select(this).style("fill", "black");
+                tooltip.transition()
+                        .style("opacity", .9)
+                tooltip.html(text)
+                        .style("left", d3.event.pageX + "px")
+                        .style("top", (d3.event.pageY - 28) + "px")
               })
             .on("mouseout", function(d,i){
-              d3.select(this).style("fill", "skyblue");
+                d3.select(this).style("fill", "skyblue");
+                tooltip.transition()
+                      .style("opacity",0)
               });
 
 
@@ -114,7 +134,6 @@ $( document ).ready(function(){
           return height - y(d[1])
         })
         .attr("width", function(d){
-          // console.log(width / params.data.length)
           return width / params.data.length
         })
         .style("fill", "skyblue");
