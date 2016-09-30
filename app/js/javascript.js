@@ -234,7 +234,13 @@ $( document ).ready(function(){
       console.log('failure!')
     },
     error: () =>{
-      console.log('error!')
+      let chart = document.getElementById('card');
+      chart.style.display = "table"
+      let errorMessage = document.createElement("h1");
+      errorMessage.innerHTML = "ERROR 404: File Not Found!"
+      errorMessage.className = "errorMessage";
+
+      chart.appendChild(errorMessage)
     }
   });
 });

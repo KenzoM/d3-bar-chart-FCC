@@ -65,6 +65,12 @@ body,html{
 	box-shadow: 0px 3px 20px -4px;
 }
 
+.errorMessage{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
 //Credits to Tom Hazledine https://codepen.io/tomhazledine/pen/BKrXwJ
 //for icon loading
 #wrapper{
