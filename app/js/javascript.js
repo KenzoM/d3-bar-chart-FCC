@@ -1,8 +1,9 @@
 $( document ).ready(function(){
-  const url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
+  //SVG canvas width and height
   const w = 1200;
   const h = 600;
 
+  //append title of the bar chart
   function title(){
     var item = document.createElement("h1");
     item.innerHTML = "Gross Domestic Product"
@@ -11,6 +12,7 @@ $( document ).ready(function(){
     title.appendChild(item)
   }
 
+  //append the source data on the bottom of the bar chart
   function source(data){
     let url = "http://www.bea.gov/national/pdf/nipaguid.pdf"
     var item = document.createElement("a");
@@ -20,6 +22,8 @@ $( document ).ready(function(){
     var title = document.getElementById('card')
     title.appendChild(item)
   }
+
+  //render the barchart from data
   function render(data){
     const margin = {
       top: 5,
@@ -44,7 +48,6 @@ $( document ).ready(function(){
     const dateParser = d3.timeParse("%Y-%m-%d");
 
     //define x-scale and y-scale
-
     const x = d3.scaleTime()
                   .domain(d3.extent(data, function(d){
                     let date = dateParser(d[0])
@@ -63,6 +66,7 @@ $( document ).ready(function(){
 
     const yAxis = d3.axisLeft(y);
 
+    //add gridlines
     const yGridLines = d3.axisLeft(y)
                           .tickSize(-width)
                           .tickFormat("")
@@ -77,12 +81,13 @@ $( document ).ready(function(){
                       return y(d[1])
                     } )
 
+    //add tooltip for user's interaction
     const tooltip = d3.select("#card")
                 .append("div")
                   .classed("tooltip", true)
                   .style("opacity",0)
 
-
+    //plot the barchart from data using #call method
     function plot(params){
       //add gridlines
       this.append("g")
@@ -121,13 +126,11 @@ $( document ).ready(function(){
           .text("Gross Domestic Product, USA")
 
       //enter()
-
       this.selectAll(".trendline")
             .data([params.data])
             .enter()
               .append("path")
               .classed("trendline", true)
-
 
       this.selectAll(".bar")
           .data(params.data)
@@ -151,7 +154,6 @@ $( document ).ready(function(){
                 tooltip.transition()
                       .style("opacity",0)
               });
-
 
       //update
       this.selectAll(".trendline")
@@ -197,8 +199,9 @@ $( document ).ready(function(){
       },
       gridlines: yGridLines
     })
-
   }
+
+  const url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
   $.ajax({
     type: "GET",
     dataType: "json",
