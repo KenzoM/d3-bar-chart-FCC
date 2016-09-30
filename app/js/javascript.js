@@ -1,7 +1,7 @@
 $( document ).ready(function(){
   const url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
-  const w = 1800;
-  const h = 800;
+  const w = 1200;
+  const h = 600;
 
   function render(data){
     const margin = {
@@ -28,9 +28,7 @@ $( document ).ready(function(){
 
     const x = d3.scaleTime()
                   .domain(d3.extent(data, function(d){
-                    // console.log(d)
                     let date = dateParser(d[0])
-                    // console.log(date,'this is date')
                     return date
                   }))
                   .range([0,width]);
@@ -67,6 +65,13 @@ $( document ).ready(function(){
         .attr("transform", "translate(0,0)")
         .call(params.axis.y)
 
+      //label our axis
+      this.select(".y.axis")
+        .append("text")
+        .style("stroke","red")
+        .style("font-size", "18px")
+
+
       //enter()
 
       this.selectAll(".trendline")
@@ -81,6 +86,12 @@ $( document ).ready(function(){
           .enter()
               .append("rect")
               .classed("bar", true)
+              .on("mouseover", function(d,i){
+              d3.select(this).style("fill", "black");
+              })
+            .on("mouseout", function(d,i){
+              d3.select(this).style("fill", "skyblue");
+              });
 
 
       //update
@@ -139,6 +150,7 @@ $( document ).ready(function(){
     },
     success: (data) =>{
       //sent data plots to render function
+      console.log(data)
       render(data.data)
     },
     fail: () =>{
