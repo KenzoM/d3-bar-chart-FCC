@@ -1,6 +1,6 @@
 #chart {
   background: #e2e2e2;
-  margin: 100px auto;
+  margin: 50px auto;
   border: 1px solid black; }
 
 .display {
@@ -12,8 +12,5 @@
 
 .trendline {
   fill: none;
-  stroke: red;
+  stroke: pink;
   stroke-width: 4px; }
-
-.area {
-  fill: skyblue; }

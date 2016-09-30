@@ -1,7 +1,8 @@
 $( document ).ready(function(){
   const url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
-  const w = 800;
-  const h = 450;
+  const w = 1800;
+  const h = 800;
+
   function render(data){
     const margin = {
       top: 50,
@@ -27,7 +28,9 @@ $( document ).ready(function(){
 
     const x = d3.scaleTime()
                   .domain(d3.extent(data, function(d){
+                    // console.log(d)
                     let date = dateParser(d[0])
+                    // console.log(date,'this is date')
                     return date
                   }))
                   .range([0,width]);
@@ -52,17 +55,6 @@ $( document ).ready(function(){
                       return y(d[1])
                     }
                   )
-
-    const area = d3.area()
-                  .x((d) =>{
-                    let date = dateParser(d[0])
-                    return x(date)
-                  } )
-                  .y0(height)
-                  .y1( (d) => {
-                    return y(d[1])
-                  } )
-
     function plot(params){
       //create axis for x and y
       this.append("g")
@@ -84,44 +76,35 @@ $( document ).ready(function(){
               .classed("trendline", true)
 
 
-      this.selectAll(".point")
+      this.selectAll(".bar")
           .data(params.data)
           .enter()
-            .append("circle")
-            .classed("point", true)
-            .attr("r", 2)
-            .on("mouseover", (d,i) =>{
-              console.log(d)
-            })
-
-      this.selectAll(".area")
-          .data([params.data])
-          .enter()
-            .append("path")
-            .classed("area", true)
+              .append("rect")
+              .classed("bar", true)
 
 
       //update
-      this.select(".trendline")
+      this.selectAll(".trendline")
             .attr("d", (d)=>{
               return line(d)
             })
 
-      this.selectAll(".point")
-            .attr("cx", function(d){
-              // console.log(d)
-              let date = dateParser(d[0])
-              // console.log(x(date))
-              return x(date)
-            })
-            .attr("cy", function(d){
-              return y(d[1])
-            })
-
-      this.selectAll(".area")
-        .attr("d", (d)=> {
-          return area(d)
+      this.selectAll(".bar")
+        .attr("x", function(d,i){
+          let date = dateParser(d[0])
+          return x(date)
         })
+        .attr("y", function(d,i){
+          return y(d[1]);
+        })
+        .attr("height", function(d,i){
+          return height - y(d[1])
+        })
+        .attr("width", function(d){
+          // console.log(width / params.data.length)
+          return width / params.data.length
+        })
+        .style("fill", "skyblue");
 
       //exit
       this.selectAll(".trendline")
@@ -130,17 +113,12 @@ $( document ).ready(function(){
           .exit()
           .remove()
 
-      this.selectAll(".point")
+      this.selectAll(".bar")
         .data(params.data)
         .enter()
           .exit()
           .remove()
 
-      this.selectAll(".area")
-        .data(params.data)
-        .enter()
-          .exit()
-          .remove()
     }
 
     plot.call(chart,{
