@@ -9,12 +9,21 @@ $( document ).ready(function(){
     item.className = "title";
     var title = document.getElementById('card')
     title.appendChild(item)
+  }
 
+  function source(data){
+    let url = "http://www.bea.gov/national/pdf/nipaguid.pdf"
+    var item = document.createElement("a");
+    item.innerHTML = data.description
+    item.className = "source";
+    item.href = url;
+    var title = document.getElementById('card')
+    title.appendChild(item)
   }
   function render(data){
     const margin = {
       top: 5,
-      bottom: 120,
+      bottom: 150,
       left: 90,
       right: 50
     }
@@ -200,9 +209,8 @@ $( document ).ready(function(){
     success: (data) =>{
       title()
       //sent data plots to render function
-      console.log(data)
       render(data.data)
-
+      source(data)
     },
     fail: () =>{
       console.log('failure!')
