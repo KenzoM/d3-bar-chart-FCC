@@ -14,7 +14,7 @@ $( document ).ready(function(){
     const height = h - (margin.top + margin.bottom);
 
     //create canvas with id="chart"
-    const svg = d3.select("body")
+    const svg = d3.select(".card")
                   .append("svg")
                     .attr("id","chart")
                     .attr("width", w)
@@ -60,7 +60,7 @@ $( document ).ready(function(){
                       return y(d[1])
                     } )
 
-    const tooltip = d3.select("body")
+    const tooltip = d3.select(".card")
                 .append("div")
                   .classed("tooltip", true)
                   .style("opacity",0)
@@ -112,7 +112,7 @@ $( document ).ready(function(){
                 let dateFormat = d3.timeFormat("%B-%Y")(dateParser(d[0]));
                 // console.log(d3.timeFormat("%b")(dateParser(d[0])))
                 let text = "$" + d[1] + " Billion"  +"<br/>" + "<strong>"+dateFormat+"</strong>";
-                d3.select(this).style("fill", "black");
+                d3.select(this).style("fill", "#DF744A");
                 tooltip.transition()
                         .style("opacity", .9)
                 tooltip.html(text)
@@ -120,7 +120,7 @@ $( document ).ready(function(){
                         .style("top", (d3.event.pageY - 28) + "px")
               })
             .on("mouseout", function(d,i){
-                d3.select(this).style("fill", "skyblue");
+                d3.select(this).style("fill", "#BFD8D2");
                 tooltip.transition()
                       .style("opacity",0)
               });
@@ -146,7 +146,6 @@ $( document ).ready(function(){
         .attr("width", function(d){
           return width / params.data.length
         })
-        .style("fill", "skyblue");
 
       //exit
       this.selectAll(".trendline")
