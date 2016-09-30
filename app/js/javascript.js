@@ -101,6 +101,16 @@ $( document ).ready(function(){
         .selectAll("text")
         .style("font-size","16px")
 
+      //add labels to our axis
+      this.select(".y.axis")
+          .append("text")
+          .style("fill","black")
+          .style("font-size", "16px")
+          .attr("x", 0)
+          .attr("y", 20)
+          .attr("transform", "translate(0,0) rotate(-90)" )
+          .text("Gross Domestic Product, USA")
+
       //enter()
 
       this.selectAll(".trendline")
