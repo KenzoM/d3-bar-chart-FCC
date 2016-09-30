@@ -3,6 +3,12 @@ $( document ).ready(function(){
   const w = 1200;
   const h = 600;
 
+  function removeIcon(){
+    let removeEl = document.getElementById('wrapper');
+    let containerEl = removeEl.parentNode;
+    containerEl.removeChild(removeEl)
+  }
+
   //append title of the bar chart
   function title(){
     let item = document.createElement("h1");
@@ -157,9 +163,11 @@ $( document ).ready(function(){
 
       //update
       this.selectAll(".trendline")
-            .attr("d", (d)=>{
-              return line(d)
-            })
+      .transition()
+        .duration(2000)
+        .attr("d", (d)=>{
+          return line(d)
+          })
 
       this.selectAll(".bar")
         .attr("x", function(d,i){
@@ -169,6 +177,11 @@ $( document ).ready(function(){
         .attr("y", function(d,i){
           return y(d[1]);
         })
+        .transition()
+  			.duration(100)
+  			.delay(function (d, i) {
+  				return i * 10;
+  			})
         .attr("height", function(d,i){
           return height - y(d[1])
         })
@@ -209,9 +222,8 @@ $( document ).ready(function(){
     beforeSend: ()=> {
     },
     complete: () =>{
-      let removeEl = document.getElementById('wrapper');
-      let containerEl = removeEl.parentNode;
-      containerEl.removeChild(removeEl)
+      //remove loading icon
+      removeIcon();
     },
     success: (data) =>{
       title()
