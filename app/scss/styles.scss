@@ -1,7 +1,12 @@
+$bg:#ecdbde;
+$bg-chart: #FEDCD2;
+$bar-color: #BFD8D2;
+$fill:black;
+
 body,html{
 	margin: 0;
 	padding: 0;
-	background: #ecdbde;
+	background: $bg;
 	font-family: "Arial", sans-serif;
 	font-size: 0.95em;
 	text-align: center;
@@ -12,7 +17,7 @@ body,html{
 	width: 1245px;
 	height: 640px;
 	// border: 1px solid red ;
-	background: #FEDCD2;
+	background: $bg-chart;
 	-webkit-box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.87);
 	-moz-box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.87);
 	box-shadow: 0px 1px 13px 0px rgba(0,0,0,0.87);
@@ -37,7 +42,7 @@ body,html{
 }
 
 .bar{
-	fill: #BFD8D2;
+	fill: $bar-color;
 }
 .trendline{
   fill: none;
@@ -61,12 +66,10 @@ body,html{
 }
 
 //Credits to Tom Hazledine https://codepen.io/tomhazledine/pen/BKrXwJ
+//for icon loading
 #wrapper{
 	padding: 250px;
 }
-
-$bg:#ecdbde;
-$fill:black;
 
 .hourglass{
     display:block;
