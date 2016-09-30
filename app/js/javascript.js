@@ -3,10 +3,18 @@ $( document ).ready(function(){
   const w = 1200;
   const h = 600;
 
+  function title(){
+    var item = document.createElement("h1");
+    item.innerHTML = "Gross Domestic Product"
+    item.className = "title";
+    var title = document.getElementById('card')
+    title.appendChild(item)
+
+  }
   function render(data){
     const margin = {
-      top: 50,
-      bottom: 100,
+      top: 5,
+      bottom: 120,
       left: 90,
       right: 50
     }
@@ -14,7 +22,7 @@ $( document ).ready(function(){
     const height = h - (margin.top + margin.bottom);
 
     //create canvas with id="chart"
-    const svg = d3.select(".card")
+    const svg = d3.select("#card")
                   .append("svg")
                     .attr("id","chart")
                     .attr("width", w)
@@ -60,7 +68,7 @@ $( document ).ready(function(){
                       return y(d[1])
                     } )
 
-    const tooltip = d3.select(".card")
+    const tooltip = d3.select("#card")
                 .append("div")
                   .classed("tooltip", true)
                   .style("opacity",0)
@@ -180,9 +188,11 @@ $( document ).ready(function(){
       console.log('beforeSend')
     },
     success: (data) =>{
+      title()
       //sent data plots to render function
       console.log(data)
       render(data.data)
+
     },
     fail: () =>{
       console.log('failure!')
