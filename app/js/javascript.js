@@ -141,7 +141,7 @@ $( document ).ready(function(){
               .on("mouseover", function(d,i){
                 let dateFormat = d3.timeFormat("%B-%Y")(dateParser(d[0]));
                 // console.log(d3.timeFormat("%b")(dateParser(d[0])))
-                let text = "$" + d[1] + " Billion"  +"<br/>" + "<strong>"+dateFormat+"</strong>";
+                let text = "$" + d[1].toLocaleString() + " Billion"  +"<br/>" + "<strong>"+dateFormat+"</strong>";
                 d3.select(this).style("fill", "#DF744A");
                 tooltip.transition()
                         .style("opacity", .9)
