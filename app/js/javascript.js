@@ -46,6 +46,10 @@ $( document ).ready(function(){
 
     const yAxis = d3.axisLeft(y);
 
+    const yGridLines = d3.axisLeft(y)
+                          .tickSize(-width)
+                          .tickFormat("")
+
     //define the line function
     const line = d3.line()
                     .x((d) =>{
@@ -63,6 +67,12 @@ $( document ).ready(function(){
 
 
     function plot(params){
+      //add gridlines
+      this.append("g")
+        .call(params.gridlines)
+        .classed("gridline",true)
+        .attr("transform","translate(0,0)")
+
       //create axis for x and y
       this.append("g")
         .classed("x axis", true)
@@ -158,7 +168,8 @@ $( document ).ready(function(){
       axis:{
         x: xAxis,
         y: yAxis
-      }
+      },
+      gridlines: yGridLines
     })
 
   }

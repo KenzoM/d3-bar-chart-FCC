@@ -12,6 +12,12 @@ body, html {
 .display {
   border: 1px solid red; }
 
+.gridline path,
+.gridline line {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges; }
+
 .trendline {
   fill: none;
   stroke: pink;
