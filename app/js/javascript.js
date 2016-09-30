@@ -6,8 +6,8 @@ $( document ).ready(function(){
   function render(data){
     const margin = {
       top: 50,
-      bottom: 50,
-      left: 50,
+      bottom: 100,
+      left: 90,
       right: 50
     }
     const width = w - (margin.left + margin.right);
@@ -65,12 +65,14 @@ $( document ).ready(function(){
         .attr("transform", "translate(0,0)")
         .call(params.axis.y)
 
-      //label our axis
+      //style our axis
       this.select(".y.axis")
-        .append("text")
-        .style("stroke","red")
-        .style("font-size", "18px")
-
+        .selectAll("text")
+        .style("font-size","18px")
+        
+      this.select(".x.axis")
+        .selectAll("text")
+        .style("font-size","16px")
 
       //enter()
 
