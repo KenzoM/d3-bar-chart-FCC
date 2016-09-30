@@ -5,21 +5,21 @@ $( document ).ready(function(){
 
   //append title of the bar chart
   function title(){
-    var item = document.createElement("h1");
+    let item = document.createElement("h1");
     item.innerHTML = "Gross Domestic Product"
     item.className = "title";
-    var title = document.getElementById('card')
+    let title = document.getElementById('card')
     title.appendChild(item)
   }
 
   //append the source data on the bottom of the bar chart
   function source(data){
     let url = "http://www.bea.gov/national/pdf/nipaguid.pdf"
-    var item = document.createElement("a");
+    let item = document.createElement("a");
     item.innerHTML = data.description
     item.className = "source";
     item.href = url;
-    var title = document.getElementById('card')
+    let title = document.getElementById('card')
     title.appendChild(item)
   }
 
@@ -207,11 +207,14 @@ $( document ).ready(function(){
     dataType: "json",
     url: url,
     beforeSend: ()=> {
-      console.log('beforeSend')
+    },
+    complete: () =>{
+      let removeEl = document.getElementById('wrapper');
+      let containerEl = removeEl.parentNode;
+      containerEl.removeChild(removeEl)
     },
     success: (data) =>{
       title()
-      //sent data plots to render function
       render(data.data)
       source(data)
     },

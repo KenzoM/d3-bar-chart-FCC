@@ -51,3 +51,32 @@ body, html {
   line-height: 24px;
   pointer-events: none;
   box-shadow: 0px 3px 20px -4px; }
+
+#wrapper {
+  padding: 250px; }
+
+.hourglass {
+  display: block;
+  background: #ecdbde;
+  margin: auto;
+  width: 2em;
+  height: 4em;
+  box-shadow: inset #ecdbde 0 0 0 0, inset black 0 2em 0 0, inset #ecdbde 0 0 4em 0;
+  animation: hourglass 1s linear infinite; }
+
+.outer {
+  fill: black; }
+
+.middle {
+  fill: #ecdbde; }
+
+@keyframes hourglass {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: inset #ecdbde 0 0 0 0, inset black 0 2em 0 0, inset #ecdbde 0 4em 0 0, inset black 0 4em 0 0; }
+  80% {
+    transform: rotate(0deg);
+    box-shadow: inset #ecdbde 0 2em 0 0, inset black 0 2em 0 0, inset #ecdbde 0 2em 0 0, inset black 0 4em 0 0; }
+  100% {
+    transform: rotate(180deg);
+    box-shadow: inset #ecdbde 0 2em 0 0, inset black 0 2em 0 0, inset #ecdbde 0 2em 0 0, inset black 0 4em 0 0; } }
